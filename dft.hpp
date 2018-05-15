@@ -7,8 +7,6 @@
 #include "vector.hpp"
 #include "complex.hpp"
 
-using std::string;
-
 // #define DFT_TOLERANCE 10E-4
 // #include <vector>
 // #include <complex>
@@ -19,7 +17,7 @@ using std::string;
 
 class FourierTransform
 {
-public:
+  public:
 	~FourierTransform(){};
 	virtual Vector<Complex> transform(const Vector<Complex>& x)=0;
 };
@@ -131,7 +129,7 @@ class IDFT: public FourierTransform{
 class FFT: public FourierTransform
 {
 public:
-	    static virtual Vector<Complex> transform(const Vector<Complex> &x, double w = 2*M_PI) {
+	static virtual Vector<Complex> transform(const Vector<Complex> &x, double w = 2*M_PI) {
         Vector<Complex> y = Vector<Complex>(x);
 
         size_t N = y.getSize();
@@ -201,10 +199,12 @@ public:
     // }	
 };
 
-class IFFT: public FourierTransform{
+class IFFT: public FourierTransform
+{
   public:
-   	virtual Vector<Complex> transform(const Vector<Complex> & x){
- 		return FFT::transform(x, -2*M_PI)/x.getSize();   	}
+    virtual Vector<Complex> transform(const Vector<Complex> & x){
+    	return FFT::transform(x, -2*M_PI)/x.getSize();
+	}
 };
 
 #endif  // FT_HPP_
