@@ -88,10 +88,10 @@ static void opt_output(string const &arg) {
 }
 
 static void opt_method(string const & method) {
-	    if (method == "DFT"){
+	    if(method == "DFT"){
         	FT = new DFT();
         	return;
-        }
+	    }
 	    if (method == "IDFT"){
         	FT = new IDFT();
         	return;
