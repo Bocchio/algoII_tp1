@@ -13,7 +13,7 @@
 #include "cmdline.hpp"
 #include "vector.hpp"
 #include "complex.hpp"
-#include "dft.hpp"
+#include "ft.hpp"
 #include "errors.hpp"
 
 using std::cout;
