@@ -12,13 +12,13 @@ diff_complex: diff_complex.o cmdline.o vector.hpp complex.hpp
 diff_complex.o: diff_complex.cpp vector.hpp complex.hpp
 	$(CXX) -c $(CPPFLAGS) $< -o $@
 
-tp1: main.o cmdline.o vector.hpp complex.hpp dft.hpp
+tp1: main.o cmdline.o vector.hpp complex.hpp ft.hpp
 	$(CXX) $(CPPFLAGS) $^ -o $@
 
 cmdline.o: cmdline.cpp
 	$(CXX) -c $(CPPFLAGS) $^ -o $@
 
-main.o: main.cpp complex.hpp vector.hpp dft.hpp
+main.o: main.cpp complex.hpp vector.hpp ft.hpp
 	$(CXX) -c $(CPPFLAGS) $< -o $@
 
 clean :

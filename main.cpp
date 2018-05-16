@@ -15,6 +15,7 @@
 #include "complex.hpp"
 #include "ft.hpp"
 #include "errors.hpp"
+#include "dictionary.hpp"
 
 using std::cout;
 using std::cin;
@@ -36,8 +37,6 @@ static void opt_help(string const &);
 //          default value,
 //          parser,
 //          flag}
-//
-
 static option_t options[] = {
     {1, "i", "input", "-", opt_input, OPT_DEFAULT},
     {1, "o", "output", "-", opt_output, OPT_DEFAULT},
@@ -88,26 +87,30 @@ static void opt_output(string const &arg) {
 }
 
 static void opt_method(string const & method) {
-	    if(method == "DFT"){
-        	FT = new DFT();
-        	return;
-	    }
-	    if (method == "IDFT"){
-        	FT = new IDFT();
-        	return;
-        }
-        if(method == "FFT"){
-	    	FT = new FFT();
-	    	return;
-	    }
-	    if(method == "IFFT"){
-	    	FT = new IFFT();
-	    	return;
-	    }
-		else{
-        	cerr << ERROR_MSG_UNKNOWN_METHOD << endl;
-           	opt_help("");
-		}
+    Dictionary<FourierTransform *> method_lookup_table;
+
+    method_lookup_table.append("FFT", new FFT());
+    method_lookup_table.append("IFFT", new IFFT());
+    method_lookup_table.append("DFT", new DFT());
+    method_lookup_table.append("DFT", new IDFT());
+
+    FT = method_lookup_table.get(method);
+    // if(method == "DFT"){
+    //     FT = new DFT();
+    // }
+    // if (method == "IDFT"){
+    //     FT = new IDFT();
+    // }
+    // if(method == "FFT"){
+    //     FT = new FFT();
+    // }
+    // if(method == "IFFT"){
+    //     FT = new IFFT();
+    // }
+    // else{
+    //     cerr << ERROR_MSG_UNKNOWN_METHOD << endl;
+    //     opt_help("");
+    // }
 }
 
 static void opt_help(string const &arg) {
@@ -120,32 +123,11 @@ int main(int argc, char * const argv[]) {
     cmdline cmdl(options);
     cmdl.parse(argc, argv);
     Vector<Complex> v;
-    // std::vector< std::complex<double> > y;
-    /*clock_t begin = clock();
 
-    FT * p=new FFT();
-*/
     if ((*iss >> v).bad()) {
         cerr << ERROR_MSG_CORRUPTED_DATA << endl;
     }
-    // for (std::complex<double> t; *iss >> t;)
-    //    y.push_back(t);
 
-  /*  clock_t end = clock();
-    double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
-    cout << "Tardó " << elapsed_secs << "segundos" << endl;
-    std::cout << "Cantidad de elementos: " << v.getSize() << std::endl;
-
-    begin = clock();
-    p->transform(v);
-
-    end = clock();
-    elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
-    cout << "FFT tardó " << elapsed_secs << "segundos" << endl;
-
-    v[S,1,5,2];*/
-    //*oss << transform(v) << endl;
-    //transform = Calculate_FT::Get_Method(method);
     *oss << FT->transform(v) << endl;
     return 0;
 }
