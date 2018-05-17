@@ -59,7 +59,7 @@ int main(int argc, char * const argv[]) {
              << endl;
         exit(1);
     }
-    dft_ofs.open(fft_filename, ios::out);
+    dft_ofs.open(dft_filename, ios::out);
     dft_oss = &dft_ofs;
     if (!dft_oss->good()) {
         cerr << ERROR_MSG_CANT_OPEN_FILE
