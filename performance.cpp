@@ -112,7 +112,6 @@ int main(int argc, char * const argv[]) {
     float division_constant = 7;
     for (size_t i = 1; i < 17000; i *= 2) {
         Vector<Complex> v;
-        int r;
         for (size_t j = 0, r = 1; j < i; j++) {
             srand((j+i+r)*(j+i+r));
             r = rand();
