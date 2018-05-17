@@ -24,7 +24,7 @@ class Vector {
     // Sets an specific size for the vector
     void _resize(size_t new_alloc_size) {
         T *aux = new T[new_alloc_size];
-        for (size_t i = 0; i < size; i++)
+        for (size_t i = 0; i < new_alloc_size; i++)
             aux[i] = data[i];
         delete []data;
         data = aux;
@@ -35,7 +35,7 @@ class Vector {
     void resize(size_t new_size) {
         if (new_size <= INIT_CHOP)
             _resize(INIT_CHOP);
-        else
+        else  // Alloc size for the first (2^n)*INIT_CHOP bigger than new_size
             _resize(INIT_CHOP*(1<<(size_t) ceil(log2(new_size)-log2(10))));
     }
 
