@@ -87,30 +87,26 @@ static void opt_output(string const &arg) {
 }
 
 static void opt_method(const string& method) {
-    Dictionary<FourierTransform *> method_lookup_table;
+    // Dictionary<FourierTransform *> method_lookup_table;
 
-    method_lookup_table.append("FFT", new FFT());
-    method_lookup_table.append("IFFT", new IFFT());
-    method_lookup_table.append("DFT", new DFT());
-    method_lookup_table.append("DFT", new IDFT());
+    // method_lookup_table.append("FFT", new FFT());
+    // method_lookup_table.append("IFFT", new IFFT());
+    // method_lookup_table.append("DFT", new DFT());
+    // method_lookup_table.append("DFT", new IDFT());
 
-    FT = method_lookup_table[method];
-    // if(method == "DFT"){
-    //     FT = new DFT();
-    // }
-    // if (method == "IDFT"){
-    //     FT = new IDFT();
-    // }
-    // if(method == "FFT"){
-    //     FT = new FFT();
-    // }
-    // if(method == "IFFT"){
-    //     FT = new IFFT();
-    // }
-    // else{
-    //     cerr << ERROR_MSG_UNKNOWN_METHOD << endl;
-    //     opt_help("");
-    // }
+    // FT = method_lookup_table[method];
+    if(method == "DFT"){
+        FT = new DFT();
+    } else if (method == "IDFT"){
+        FT = new IDFT();
+    } else if(method == "FFT"){
+        FT = new FFT();
+    } else if(method == "IFFT"){
+        FT = new IFFT();
+    } else {
+        cerr << ERROR_MSG_UNKNOWN_METHOD << endl;
+        opt_help("");
+    }
 }
 
 static void opt_help(string const &arg) {
@@ -131,6 +127,5 @@ int main(int argc, char * const argv[]) {
 
     *oss << FT->transform(v) << endl;
 
-    delete FT;
     return 0;
 }
