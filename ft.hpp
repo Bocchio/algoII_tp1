@@ -10,12 +10,16 @@
 // Helper function, a generic implementation of the Cooley-Tukey fft algorithm
 static Vector<Complex> fft(const Vector<Complex>& x, double w = 2*M_PI) {
     Vector<Complex> y = Vector<Complex>(x);
+    bool added_zero = false;
 
     size_t N = y.getSize();
     if (N == 1)
         return y;
-    if (N % 2 == 1)  // Fill with ceros if there's an odd size
+    if (N % 2 == 1) {  // Fill with ceros if there's an odd size
         y += Vector<Complex>().append(Complex());
+        N++;
+        added_zero = true;
+    }
 
     Vector<Complex> even = y.slice(0, -1, 2);  // take the even indexes
     Vector<Complex> odd = y.slice(1, -1, 2);  // take the odd indexes
@@ -30,6 +34,9 @@ static Vector<Complex> fft(const Vector<Complex>& x, double w = 2*M_PI) {
         y[i] = even[i] + odd[i];
         y[i+N/2] = even[i] - odd[i];
     }
+
+    if(added_zero)
+        y.remove(N-1);
 
     return y;
 }

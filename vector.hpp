@@ -178,9 +178,8 @@ class Vector {
         if (pos < size) {
             for (size_t i = pos; i < size - 1; ++i)  // move everything one step back
                 data[i] = data[i+1];
-            delete data[size - 1];  // delete the last item
             size--;
-            resize(size);
+            resize(size);  // delete the last item and resize
         }
 
     }
