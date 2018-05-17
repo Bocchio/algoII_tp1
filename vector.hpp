@@ -12,80 +12,6 @@
 using std::ostream;
 using std::istream;
 
-class Slice {
-    size_t stride;
-    size_t start;
-    size_t end;
-    bool has_start;
-    bool has_end;
-    bool has_stride;
- public:
-    Slice() {
-        stride = 1;
-        start = end = 0;
-        has_start = has_end = has_stride = false;
-    }
-
-    Slice(size_t start, size_t end) {
-        this->start = start;
-        this->end = end;
-        stride = 1;
-        has_start = has_end = true;
-        has_stride = false;
-    }
-
-    void setStart(size_t new_start) {
-        this->start = new_start;
-        has_start = true;
-    }
-
-    void setEnd(size_t new_end) {
-        this->end = new_end;
-        has_end = true;
-    }
-
-    void setStride(size_t new_stride) {
-        this->stride = new_stride;
-        has_stride = true;
-    }
-
-    bool hasStart() {
-        return has_start;
-    }
-
-    bool hasEnd() {
-        return has_end;
-    }
-
-    bool hasStride() {
-        return has_stride;
-    }
-
-    friend ostream& operator<<(ostream& os, const Slice& r) {
-        os << "Slice(" << r.start
-           << "," << r.end
-           << "," << r.stride
-           << ")";
-        return os;
-    }
-};
-
-static const Slice S;  // global dummy object, helps creating slices on the fly
-
-Slice operator,(const Slice& a, size_t b) {
-    Slice c = a;
-    if (!c.hasStart()) {
-        c.setStart(b);
-    }
-    else if (!c.hasEnd()) {
-        c.setEnd(b);
-    }
-    else {
-        c.setStride(b);
-    }
-    return c;
-}
-
 template <typename T>
 class Vector {
     T *data;
@@ -296,9 +222,6 @@ class Vector {
         return &data[size];
     }
 
-    void operator[](const Slice& thingy) const {
-        std::cout << thingy << std::endl;
-    }
 };
 
 #endif  // VECTOR_HPP_
