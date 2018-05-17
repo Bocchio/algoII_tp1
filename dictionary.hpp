@@ -26,6 +26,7 @@ class Dictionary {
     }
 
     ~Dictionary() {
+        delete[] keys;
         delete[] table;
         delete[] hashes;
     }
