@@ -82,7 +82,6 @@ class IDFT: public FourierTransform {
 
 class FFT: public FourierTransform {
  public:
-    ~FFT() {std::cout << "~HIJO" << std::endl;};
     virtual Vector<Complex> transform(const Vector<Complex> &x) {
         return fft(x);
     }
