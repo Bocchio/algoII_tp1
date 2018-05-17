@@ -34,12 +34,13 @@ static Vector<Complex> fft(const Vector<Complex>& x, double w = 2*M_PI) {
 
 class FourierTransform {
   public:
-    virtual ~FourierTransform(){};
+    ~FourierTransform(){std::cout << "~PADRE" << std::endl;};
     virtual Vector<Complex> transform(const Vector<Complex>& x) = 0;
 };
 
 class DFT: public FourierTransform {
  public:
+    ~DFT() {std::cout << "~HIJO" << std::endl;};
     virtual Vector<Complex> transform(const Vector<Complex>& x) {
         Vector<Complex> y = Vector<Complex>(x);
 
@@ -61,6 +62,7 @@ class DFT: public FourierTransform {
 
 class IDFT: public FourierTransform {
   public:
+    ~IDFT() {std::cout << "~HIJO" << std::endl;};
     virtual Vector<Complex> transform(const Vector<Complex>& x){
         Vector<Complex> y = Vector<Complex>(x);
 
@@ -82,6 +84,7 @@ class IDFT: public FourierTransform {
 
 class FFT: public FourierTransform {
  public:
+    ~FFT() {std::cout << "~HIJO" << std::endl;};
     virtual Vector<Complex> transform(const Vector<Complex> &x) {
         return fft(x);
     }
@@ -89,6 +92,7 @@ class FFT: public FourierTransform {
 
 class IFFT: public FourierTransform {
   public:
+    ~IFFT() {std::cout << "~HIJO" << std::endl;};
     virtual Vector<Complex> transform(const Vector<Complex> & x){
         return fft(x, -2*M_PI)/x.getSize();
     }

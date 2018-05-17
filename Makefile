@@ -1,5 +1,5 @@
 CXX = g++
-CPPFLAGS = -std=c++98 -Wall -pedantic-errors -g
+CPPFLAGS = -std=c++98 -Wall -pedantic-errors -g -O0
 
 TESTS_DIR = ./tests
 GTEST_FLAGS = -lpthread -lgtest -I.
@@ -18,13 +18,13 @@ tp1: main.o cmdline.o vector.hpp complex.hpp ft.hpp
 cmdline.o: cmdline.cpp
 	$(CXX) -c $(CPPFLAGS) $^ -o $@
 
-main.o: main.cpp complex.hpp vector.hpp ft.hpp
+main.o: main.cpp complex.hpp vector.hpp ft.hpp dictionary.hpp
 	$(CXX) -c $(CPPFLAGS) $< -o $@
 
-performance: performance.o cmdline.o vector.hpp complex.hpp ft.hpp
+performance: performance.o cmdline.o vector.hpp complex.hpp ft.hpp dictionary.hpp
 	$(CXX) $(CPPFLAGS) $^ -o $@
 
-performance.o: performance.cpp complex.hpp vector.hpp ft.hpp
+performance.o: performance.cpp complex.hpp vector.hpp ft.hpp dictionary.hpp
 	$(CXX) -c $(CPPFLAGS) $< -o $@
 
 clean :

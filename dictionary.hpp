@@ -7,7 +7,7 @@ using std::string;
 
 template <typename T>
 class Dictionary {
-    static const int FREE = -1;
+    static const long FREE = -1;
     static const size_t DEFAULT_SIZE = 20;
  public:
     size_t size;
@@ -22,25 +22,34 @@ class Dictionary {
         }
     }
 
+    ~Dictionary() {
+        for (size_t i = 0; i < size; i++) {
+            if (hashes[i] != FREE)
+                delete table[i];
+        }
+        delete[] table;
+        delete[] hashes;
+    }
+
     void append(string key, const T& value) {
         long hash = Dictionary::hash(key);
         size_t pos = hash%size;
 
-        for (; pos < size; pos++) {
+        for (; hashes[pos] != FREE; pos += 1, pos %= size) {
             if (hashes[pos] == hash)  // unsafe?
                 return;
-            hashes[pos] = hash;
-            table[pos] = value;
         }
+        hashes[pos] = hash;
+        table[pos] = value;
     }
 
     T& operator[](string key) const {
         long hash = Dictionary::hash(key);
         size_t pos = hash%size;
 
-        for (; hashes[pos%size] != FREE; pos++) {
-            if (hashes[pos%size] == hash)
-                return table[pos%size];
+        for (; hashes[pos] != FREE; pos += 1, pos %= size) {
+            if (hashes[pos] == hash)
+                return table[pos];
         }
 
         // Qué devolver acá? posibilidad excepción
