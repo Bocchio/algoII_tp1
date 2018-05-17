@@ -10,4 +10,4 @@
 #define ERROR_MSG_MANDATORY_OPT     "Option is mandatory."
 #define HELP_MSG                    "cmdline [-i file] [-o file] [-m method]"
 
-#endif
+#endif  // ERRORS_HPP__

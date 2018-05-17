@@ -86,7 +86,7 @@ static void opt_output(string const &arg) {
     }
 }
 
-static void opt_method(string const & method) {
+static void opt_method(const string& method) {
     Dictionary<FourierTransform *> method_lookup_table;
 
     method_lookup_table.append("FFT", new FFT());
@@ -94,7 +94,7 @@ static void opt_method(string const & method) {
     method_lookup_table.append("DFT", new DFT());
     method_lookup_table.append("DFT", new IDFT());
 
-    FT = method_lookup_table.get(method);
+    FT = method_lookup_table[method];
     // if(method == "DFT"){
     //     FT = new DFT();
     // }
@@ -122,6 +122,7 @@ static void opt_help(string const &arg) {
 int main(int argc, char * const argv[]) {
     cmdline cmdl(options);
     cmdl.parse(argc, argv);
+
     Vector<Complex> v;
 
     if ((*iss >> v).bad()) {
@@ -129,5 +130,7 @@ int main(int argc, char * const argv[]) {
     }
 
     *oss << FT->transform(v) << endl;
+
+    delete FT;
     return 0;
 }
