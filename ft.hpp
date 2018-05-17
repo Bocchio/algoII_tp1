@@ -14,6 +14,8 @@ static Vector<Complex> fft(const Vector<Complex>& x, double w = 2*M_PI) {
     size_t N = y.getSize();
     if (N == 1)
         return y;
+    if (N % 2 == 1)  // Fill with ceros if there's an odd size
+        y += Vector<Complex>().append(Complex());
 
     Vector<Complex> even = y.slice(0, -1, 2);  // take the even indexes
     Vector<Complex> odd = y.slice(1, -1, 2);  // take the odd indexes

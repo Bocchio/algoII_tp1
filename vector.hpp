@@ -81,7 +81,7 @@ class Vector {
     }
 
     // Concatenates two vectors
-    Vector operator+(const Vector& r) {
+    Vector operator+(const Vector& r) const {
         Vector result;
         for (size_t i = 0; i < size; i++)
             result.append(data[i]);
@@ -90,8 +90,15 @@ class Vector {
         return result;
     }
 
+    // Adds a vector to the tail of the current one
+    Vector& operator+=(const Vector& r) {
+        for (size_t i = 0; i < r.size; i++)
+            append(r.data[i]);
+        return *this;
+    }
+
     // Multiplication element by element
-    Vector operator*(const Vector& r) {
+    Vector operator*(const Vector& r) const {
         if (size != r.size)
             throw std::length_error("The two vectors have different sizes.");
         Vector result;
@@ -159,11 +166,12 @@ class Vector {
         return result;
     }
 
-    void append(const T& object) {
+    Vector& append(const T& object) {
         if (size >= alloc_size)
             resize(size+1);
         data[size] = T(object);  // puts a copy inside
         size++;
+        return *this;
     }
 
     void remove(size_t pos) {

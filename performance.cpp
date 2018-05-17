@@ -15,7 +15,6 @@
 #include "complex.hpp"
 #include "ft.hpp"
 #include "errors.hpp"
-#include "dictionary.hpp"
 
 using std::cout;
 using std::cin;
