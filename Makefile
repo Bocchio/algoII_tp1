@@ -4,7 +4,7 @@ CPPFLAGS = -std=c++98 -Wall -pedantic-errors -g -O0
 TESTS_DIR = ./tests
 GTEST_FLAGS = -lpthread -lgtest -I.
 
-all: tp1 diff_complex test_all performance
+all: tp1 diff_complex performance
 
 diff_complex: diff_complex.o cmdline.o vector.hpp complex.hpp
 	$(CXX) $(CPPFLAGS) $^ -o $@
@@ -29,12 +29,3 @@ performance.o: performance.cpp complex.hpp vector.hpp ft.hpp dictionary.hpp
 
 clean :
 	rm -f *.o
-
-$(TESTS_DIR)/test_vector.o: $(TESTS_DIR)/test_vector.cpp vector.hpp
-	$(CXX) $(CPPFLAGS) $(GTEST_FLAGS) -c $< -o $@
-
-$(TESTS_DIR)/test_main.o: $(TESTS_DIR)/test_main.cpp
-	$(CXX) $(CPPFLAGS) $(GTEST_FLAGS) -c $< -o $@
-
-test_all: $(TESTS_DIR)/test_vector.o $(TESTS_DIR)/test_main.o
-	$(CXX) $(CPPFLAGS) $(GTEST_FLAGS) $^ -o $@
