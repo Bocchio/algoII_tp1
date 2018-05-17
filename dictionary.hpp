@@ -34,14 +34,16 @@ class Dictionary {
         }
     }
 
-    T& get(string key) {
+    T& operator[](string key) const {
         long hash = Dictionary::hash(key);
         size_t pos = hash%size;
 
-        for (; hashes[pos] != FREE; pos++) {
-            if (hashes[pos] == hash)
-                return table[pos];
+        for (; hashes[pos%size] != FREE; pos++) {
+            if (hashes[pos%size] == hash)
+                return table[pos%size];
         }
+
+        // Qué devolver acá? posibilidad excepción
     }
 
     static long hash(string str) {
