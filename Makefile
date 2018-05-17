@@ -1,9 +1,6 @@
 CXX = g++
 CPPFLAGS = -std=c++98 -Wall -pedantic-errors -g -O0
 
-TESTS_DIR = ./tests
-GTEST_FLAGS = -lpthread -lgtest -I.
-
 all: tp1 diff_complex performance
 
 diff_complex: diff_complex.o cmdline.o vector.hpp complex.hpp
