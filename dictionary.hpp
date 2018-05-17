@@ -2,6 +2,7 @@
 #define DICTIONARY_HPP__
 
 #include <string>
+#include <stdexcept>  // For exceptions
 
 using std::string;
 
@@ -52,7 +53,7 @@ class Dictionary {
                 return table[pos];
         }
 
-        // Qué devolver acá? posibilidad excepción
+        throw std::out_of_range("No such element in the dictionary");
     }
 
     static long hash(string str) {

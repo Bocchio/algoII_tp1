@@ -48,10 +48,11 @@ static option_t options[] = {
 static istream *iss = 0;
 static ostream *oss = 0;
 typedef Vector<Complex> ( *transform_method)(const Vector<Complex> &v);
-//static transform_method transform;
 static fstream ifs;
 static fstream ofs;
 FourierTransform * FT;
+Dictionary<FourierTransform *> method_lookup_table;
+
 static void opt_input(string const &arg) {
     if (arg == "-") {
         iss = &cin;
@@ -87,12 +88,12 @@ static void opt_output(string const &arg) {
 }
 
 static void opt_method(string const & method) {
-    Dictionary<FourierTransform *> method_lookup_table;
+
 
     method_lookup_table.append("FFT", new FFT());
     method_lookup_table.append("IFFT", new IFFT());
     method_lookup_table.append("DFT", new DFT());
-    method_lookup_table.append("DFT", new IDFT());
+    method_lookup_table.append("IDFT", new IDFT());
 
     FT = method_lookup_table[method];
 }
@@ -106,10 +107,6 @@ static void opt_help(string const &arg) {
 int main(int argc, char * const argv[]) {
     cmdline cmdl(options);
     cmdl.parse(argc, argv);
-
-    // if ((*iss >> v).bad()) {
-    //    cerr << ERROR_MSG_CORRUPTED_DATA << endl;
-    // }
 
     int max_size = 1000;
     float division_constant = 7;
@@ -129,8 +126,6 @@ int main(int argc, char * const argv[]) {
         double elapsed_secs = double(end - begin)/CLOCKS_PER_SEC;
         *oss << i << " " << elapsed_secs << std::endl;
     }
-
-    // std::cout << v.getSize() << " " << elapsed_secs << std::endl;
 
     return 0;
 }

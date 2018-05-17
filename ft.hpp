@@ -34,7 +34,7 @@ static Vector<Complex> fft(const Vector<Complex>& x, double w = 2*M_PI) {
 
 class FourierTransform {
   public:
-    ~FourierTransform(){std::cout << "~PADRE" << std::endl;};
+    virtual ~FourierTransform(){};
     virtual Vector<Complex> transform(const Vector<Complex>& x) = 0;
 };
 

@@ -24,7 +24,10 @@ class Vector {
     // Sets an specific size for the vector
     void _resize(size_t new_alloc_size) {
         T *aux = new T[new_alloc_size];
-        for (size_t i = 0; i < new_alloc_size; i++)
+
+        // fill aux with the values in data
+        size_t min_size = new_alloc_size < size ? new_alloc_size : size;
+        for (size_t i = 0; i < min_size; i++)
             aux[i] = data[i];
         delete []data;
         data = aux;

@@ -23,7 +23,6 @@ using std::string;
 static void opt_input1(string const &);
 static void opt_input2(string const &);
 static void opt_verbose(string const &);
-static void opt_help(string const &);
 
 // syntax: {needs argument,
 //          short name,
@@ -31,7 +30,6 @@ static void opt_help(string const &);
 //          default value,
 //          parser,
 //          flag}
-//
 static option_t options[] = {
     {1, "i1", "input1", "-", opt_input1, OPT_DEFAULT},
     {1, "i2", "input2", "-", opt_input2, OPT_DEFAULT},
